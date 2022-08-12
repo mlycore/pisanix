@@ -17,6 +17,8 @@ use aws_sdk_cloudwatchlogs::{model::InputLogEvent, Client};
 use chrono::Utc;
 use tracing::trace;
 
+use super::auditchannel::{AuditChannel, AuditLog};
+
 pub struct CloudWatchLog {
     log_group_name: String,
     log_stream_name: String,
@@ -35,6 +37,16 @@ impl CloudWatchLog {
         }
     }
 }
+
+// impl AuditLog for CloudWatchLog {
+//     pub fn get_message(&self) -> String {
+//         self.message
+//     }
+
+//     pub fn get_timestamp() -> i64 {
+//         self.timestamp
+//     }
+// }
 
 pub struct CloudWatchSinker {
     pub client: Client,

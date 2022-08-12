@@ -260,6 +260,7 @@ dependencies = [
  "aws-config",
  "aws-sdk-cloudwatchlogs",
  "chrono",
+ "crossbeam-channel",
  "tokio",
  "tracing",
  "tracing-futures",
