@@ -3,7 +3,7 @@ module github.com/database-mesh/pisanix/pisa-controller
 go 1.18
 
 require (
-	github.com/database-mesh/golang-sdk v0.0.0-20230221073416-9c4c210046b1
+	github.com/database-mesh/golang-sdk v0.0.0-20230303082534-8f433d5e0ce9
 	github.com/gin-gonic/gin v1.7.7
 	github.com/gorhill/cronexpr v0.0.0-20180427100037-88b0669f7d75
 	github.com/mlycore/log v0.1.0
@@ -77,7 +77,7 @@ require (
 	golang.org/x/crypto v0.1.0 // indirect
 	golang.org/x/net v0.3.1-0.20221206200815-1e63c2f08a10 // indirect
 	golang.org/x/oauth2 v0.0.0-20220223155221-ee480838109b // indirect
-	golang.org/x/sys v0.3.0 // indirect
+	golang.org/x/sys v0.4.0 // indirect
 	golang.org/x/term v0.3.0 // indirect
 	golang.org/x/text v0.5.0 // indirect
 	golang.org/x/time v0.3.0 // indirect

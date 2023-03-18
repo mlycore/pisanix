@@ -24,6 +24,7 @@ import (
 	"github.com/database-mesh/golang-sdk/aws/client/rds"
 	v1alpha1 "github.com/database-mesh/golang-sdk/kubernetes/api/v1alpha1"
 	"github.com/database-mesh/pisanix/pisa-controller/pkg/utils"
+	"github.com/mlycore/log"
 
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -368,10 +369,13 @@ func (r *VirtualDatabaseReconciler) reconcileAWSRdsCluster(ctx context.Context, 
 				SetIOPS(1000).
 				SetDBSubnetGroupName(subnetGroupName).
 				SetAvailabilityZones(strings.Split(availabilityZones, ",")).
+				SetPublicAccessible(class.Spec.PubliclyAccessible).
 				// SetAllocatedStorage(class.Spec.Storage.AllocatedStorage).
 				Create(ctx); err != nil {
 				return err
 			}
+
+			log.Infof("aws rds cluster not found: randompass: %s", randompass)
 			return nil
 		}
 		return err
@@ -396,7 +400,7 @@ func (r *VirtualDatabaseReconciler) reconcileAWSRdsCluster(ctx context.Context, 
 							Host:     "",
 							Port:     0,
 							User:     class.Spec.DefaultMasterUsername,
-							Password: utils.RandomString(),
+							Password: randompass,
 							DB:       svc.DatabaseMySQL.DB,
 						},
 					},
@@ -411,6 +415,7 @@ func (r *VirtualDatabaseReconciler) reconcileAWSRdsCluster(ctx context.Context, 
 				if err := r.Create(ctx, exp); err != nil {
 					return err
 				}
+				log.Infof("aws rds cluster dbep not found: randompass: %s", randompass)
 			}
 		}
 	}
@@ -437,6 +442,7 @@ func (r *VirtualDatabaseReconciler) reconcileAWSRdsAurora(ctx context.Context, v
 				SetDBInstanceClass(class.Spec.Instance.Class).
 				SetMasterUsername(class.Spec.DefaultMasterUsername).
 				SetMasterUserPassword(randompass).
+				SetPublicAccessible(class.Spec.PubliclyAccessible).
 				CreateWithPrimary(ctx); err != nil {
 				return err
 			}

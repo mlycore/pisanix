@@ -206,6 +206,7 @@ func (r *DatabaseEndpointReconciler) reconcileAWSRdsInstance(ctx context.Context
 				SetMasterUsername(dbep.Spec.Database.MySQL.User).
 				SetMasterUserPassword(dbep.Spec.Database.MySQL.Password).
 				SetDBName(dbep.Spec.Database.MySQL.DB).
+				SetPublicAccessible(class.Spec.PubliclyAccessible).
 				Create(ctx); err != nil {
 				return err
 			}
